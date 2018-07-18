@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  chapter: MyString
+  module: MyString
+  name: MyString
+  time: 2018-07-18 17:45:38
+  completed: false
+  task: one
+
+two:
+  chapter: MyString
+  module: MyString
+  name: MyString
+  time: 2018-07-18 17:45:38
+  completed: false
+  task: two
