@@ -70,7 +70,7 @@
     <% days_arr[days_from_start] = days_arr[days_from_start] || [] %>
     <% days_arr[days_from_start].each do |p| %>
 
-    <%= link_to "#{p.chapter}>#{p.module}>#{p.name}:#{p.hours*60 + p.minutes}", task, class: "btn btn-default btn-xs cal-content" %>
+      <%= link_to "#{p.chapter}>#{p.module}>#{p.name}:#{p.hours*60 + p.minutes}", task, class: "btn btn-default btn-xs cal-content" %>
     <% end %>
   <% end %>
 <% end %>
