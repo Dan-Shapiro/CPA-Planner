@@ -10,9 +10,9 @@
   </div>
 
   <h3>Parts</h3>
-  <div id="chapters">
+  <div id="parts">
     <%= f.simple_fields_for :parts do |part| %>
-      <%= render 'part_fields', f: chapter %>
+      <%= render 'part_fields', f: part %>
     <% end %>
     <div class="links">
       <%= link_to_add_association 'Add Part', f, :parts %>

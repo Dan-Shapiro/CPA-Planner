@@ -1,8 +1,6 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Tasks</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
@@ -25,6 +23,59 @@
     <% end %>
   </tbody>
 </table>
+
+<br>
+
+<%= month_calendar events: @tasks, attribute: :start_date, end_attribute: :end_date do |date, tasks| %>
+  <%= date.day %><br>
+
+  <% tasks.each do |task| %>
+    <%= task.name %>
+
+    
+    <% num_days = (task.end_date - task.start_date + 1).to_i %>
+    <% days_arr = [] %>
+    <% first_available_day = 0 %>
+    <% num_days.times do %>
+      <% days_arr.push([]) %>
+    <% end %>
+
+    <% total_minutes = 0 %>
+    <% task.parts.each do |part| %>
+      <% total_minutes += (part.hours * 60) + part.minutes %>
+    <% end %>
+    <% minutes_per_day = (total_minutes.to_f / num_days.to_f).round %>
+    <% time_left_in_day = minutes_per_day %>
+
+    <% parts = task.parts %>
+
+    <% curr_minute_count = 0 %>
+    <% minutes_counted = minutes_per_day %>
+    <% while parts.count > 0 %>
+      <% part = parts.first %>
+      <% days_arr[first_available_day].push(part) if days_arr.count > first_available_day %>
+      <% if curr_minute_count < minutes_counted %>
+        <% curr_minute_count += part.hours * 60 + part.minutes %>
+      <% end %>
+      <% if part.hours * 60 + part.minutes >= time_left_in_day %>
+        <% first_available_day += 1 %>
+        <% time_left_in_day = minutes_per_day %>
+        <% minutes_counted += minutes_per_day %>
+      <% else %>
+        <% time_left_in_day -= (part.hours * 60 + part.minutes) %>
+      <% end %>
+      <% if curr_minute_count < minutes_counted %>
+        <% parts = parts.drop(1) %>
+      <% end %>
+    <% end %>
+
+    <% days_from_start = (date - task.start_date).to_i %>
+    <% days_arr[days_from_start] = days_arr[days_from_start] || [] %>
+    <% days_arr[days_from_start].each do |p| %>
+      <br><%= p.name %>
+    <% end %>
+  <% end %>
+<% end %>
 
 <br>
 

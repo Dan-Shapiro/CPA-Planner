@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Name:</strong>
   <%= @task.name %>
@@ -14,6 +12,30 @@
   <strong>End date:</strong>
   <%= @task.end_date %>
 </p>
+
+<h3>Parts</h3>
+<% @task.parts.each do |part| %>
+	<p>
+	  <strong>Chapter:</strong>
+	  <%= part.chapter %>
+	</p>
+	<p>
+	  <strong>Module:</strong>
+	  <%= part.module %>
+	</p>
+	<p>
+	  <strong>Part:</strong>
+	  <%= part.name %>
+	</p>
+	<p>
+	  <strong>Hours:</strong>
+	  <%= part.hours %>
+	</p>
+	<p>
+	  <strong>Minutes:</strong>
+	  <%= part.minutes %>
+	</p>
+<% end %>
 
 <%= link_to 'Edit', edit_task_path(@task) %> |
 <%= link_to 'Back', tasks_path %>

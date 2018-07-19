@@ -5,4 +5,12 @@ class Task < ApplicationRecord
 																allow_destroy: true
 
 	validates :name, :start_date, :end_date, presence: true
+
+	def start_time
+		self.start_date
+	end
+
+	def end_time
+		self.end_date
+	end
 end
