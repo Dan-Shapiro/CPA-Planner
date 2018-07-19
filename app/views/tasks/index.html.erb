@@ -30,9 +30,6 @@
   <%= date.day %><br>
 
   <% tasks.each do |task| %>
-    <%= task.name %>
-
-    
     <% num_days = (task.end_date - task.start_date + 1).to_i %>
     <% days_arr = [] %>
     <% first_available_day = 0 %>
@@ -72,11 +69,14 @@
     <% days_from_start = (date - task.start_date).to_i %>
     <% days_arr[days_from_start] = days_arr[days_from_start] || [] %>
     <% days_arr[days_from_start].each do |p| %>
-      <br><%= p.name %>
+
+    <%= link_to "#{p.chapter}>#{p.module}>#{p.name}:#{p.hours*60 + p.minutes}", task, class: "btn btn-default btn-xs cal-content" %>
     <% end %>
   <% end %>
 <% end %>
 
 <br>
 
-<%= link_to 'New Task', new_task_path %>
+<%= link_to 'New Task', new_task_path, class: "btn btn-primary btn-xl page-scroll" %>
+<br><br>
+<%= link_to 'Logout', destroy_user_session_path, method: :delete, class: "btn btn-default btn-sm" %>

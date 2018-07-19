@@ -13,6 +13,7 @@
 //= require jquery
 //= require rails-ujs
 //= require cocoon
+//= require creative
 //= require activestorage
 //= require turbolinks
 //= require_tree .

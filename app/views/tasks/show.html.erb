@@ -1,41 +1,19 @@
-<p>
-  <strong>Name:</strong>
-  <%= @task.name %>
-</p>
+<div class="well well-title">
+  <h1><%= @task.name %></h1>
 
-<p>
-  <strong>Start date:</strong>
-  <%= @task.start_date %>
-</p>
-
-<p>
-  <strong>End date:</strong>
-  <%= @task.end_date %>
-</p>
+  <h3><%= @task.start_date.to_formatted_s :rfc822 %> - <%= @task.end_date.to_formatted_s :rfc822 %></h3>
+</div>
 
 <h3>Parts</h3>
 <% @task.parts.each do |part| %>
-	<p>
-	  <strong>Chapter:</strong>
-	  <%= part.chapter %>
-	</p>
-	<p>
-	  <strong>Module:</strong>
-	  <%= part.module %>
-	</p>
-	<p>
-	  <strong>Part:</strong>
-	  <%= part.name %>
-	</p>
-	<p>
-	  <strong>Hours:</strong>
-	  <%= part.hours %>
-	</p>
-	<p>
-	  <strong>Minutes:</strong>
-	  <%= part.minutes %>
-	</p>
+	<div class="well">
+	  <p>
+	  	<%= part.chapter %> > <%= part.module %> > <%= part.name %>: <%= pluralize(part.hours * 60 + part.minutes, 'min') %>
+	  </p>
+	</div>
 <% end %>
 
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>
+<%= link_to 'Edit', edit_task_path(@task), class: "btn btn-default btn-sm" %> |
+<%= link_to 'Destroy', @task, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-default btn-sm" %>
+<br><br>
+<%= link_to 'Back', tasks_path, class: "btn btn-default btn-md" %>
