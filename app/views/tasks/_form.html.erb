@@ -8,6 +8,7 @@
     <%= f.input :start_date %>
     <%= f.input :end_date %>
   </div>
+  <hr>
 
   <h3>Parts</h3>
   <div id="parts">
@@ -15,11 +16,11 @@
       <%= render 'part_fields', f: part %>
     <% end %>
     <div class="links">
-      <%= link_to_add_association 'Add Part', f, :parts %>
+      <%= link_to_add_association 'Add Part', f, :parts, class: "btn btn-success btn-md" %><br><br>
     </div>  
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, class: "btn btn-primary btn-lg" %><br><br>
   </div>
 <% end %>

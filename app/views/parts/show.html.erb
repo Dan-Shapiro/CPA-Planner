@@ -1,0 +1,30 @@
+<table class="table">
+	<thead>
+		<tr>
+			<th>Task</th>
+			<th>Chapter</th>
+			<th>Module</th>
+			<th>Name</th>
+			<th>Hours</th>
+			<th>Minutes</th>
+			<th>Completed</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><%= @task.name %></td>
+			<td><%= @part.chapter %></td>
+			<td><%= @part.module %></td>
+			<td><%= @part.name %></td>
+			<td><%= @part.hours %></td>
+			<td><%= @part.minutes %></td>
+			<td><%= @part.completed ? "Yes" : "No" %></td>
+		</tr>
+	</tbody>
+</table>
+
+<% if @part.completed == false %>
+	<%= link_to 'Mark Done', part_completed_path(@task, @part), :method => :post, class: "btn btn-primary btn-lg" %>
+<% end %>
+<br><br>
+<%= link_to 'Back', tasks_path, class: "btn btn-default btn-md" %>

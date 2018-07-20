@@ -185,7 +185,7 @@ header {
     min-height: auto;
     text-align: center;
     color: #fff;
-    overflow: hidden;
+    overflow: auto;
 }
 
 header .header-content {
@@ -194,8 +194,7 @@ header .header-content {
     padding: 100px 15px;
     text-align: center;
     margin-top: 50px;
-    height: calc(100vh - 50px);
-    overflow-y: scroll;
+    height: 100%;
 }
 
 header .header-content .header-content-inner h1 {

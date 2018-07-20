@@ -1,9 +1,10 @@
 <div class="nested-fields">
-	<%= f.input :name %>
 	<%= f.input :chapter %>
 	<%= f.input :module %>
+	<%= f.input :name %>
 	<%= f.input :hours %>
 	<%= f.input :minutes %>
 	<%= f.input :completed, :as  => :hidden, :input_html => { :value => false }%>
-	<%= link_to_remove_association "Remove Part", f %>
+	<%= link_to_remove_association "Remove Part", f, class: "btn btn-warning btn-md" %><br>
+	<hr>
 </div>

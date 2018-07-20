@@ -3,9 +3,9 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Start date</th>
-      <th>End date</th>
+      <th class="text-center">Name</th>
+      <th class="text-center">Start date</th>
+      <th class="text-center">End date</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,9 +16,9 @@
         <td><%= task.name %></td>
         <td><%= task.start_date %></td>
         <td><%= task.end_date %></td>
-        <td><%= link_to 'Show', task %></td>
-        <td><%= link_to 'Edit', edit_task_path(task) %></td>
-        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', task, class: "btn btn-default btn-sm" %></td>
+        <td><%= link_to 'Edit', edit_task_path(task), class: "btn btn-default btn-sm" %></td>
+        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default btn-sm" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -70,7 +70,7 @@
     <% days_arr[days_from_start] = days_arr[days_from_start] || [] %>
     <% days_arr[days_from_start].each do |p| %>
 
-      <%= link_to "#{p.chapter}>#{p.module}>#{p.name}:#{p.hours*60 + p.minutes}", task, class: "btn btn-default btn-xs cal-content" %>
+      <%= link_to "#{p.chapter}>#{p.module}>#{p.name}:#{p.hours*60 + p.minutes}#{p.completed ? ' | DONE' : ''}", task_part_path(task, p), class: "btn btn-default btn-xs cal-content" %>
     <% end %>
   <% end %>
 <% end %>
@@ -78,5 +78,3 @@
 <br>
 
 <%= link_to 'New Task', new_task_path, class: "btn btn-primary btn-xl page-scroll" %>
-<br><br>
-<%= link_to 'Logout', destroy_user_session_path, method: :delete, class: "btn btn-default btn-sm" %>
