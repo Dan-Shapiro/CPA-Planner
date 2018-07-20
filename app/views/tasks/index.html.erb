@@ -30,7 +30,9 @@
   <%= date.day %><br>
 
   <% tasks.each do |task| %>
-    <% num_days = (task.end_date - task.start_date + 1).to_i %>
+    <% start = DateTime.now.to_date > task.start_date ? DateTime.now.to_date : task.start_date %>
+    <% num_days = (task.end_date - start + 1).to_i %>
+
     <% days_arr = [] %>
     <% first_available_day = 0 %>
     <% num_days.times do %>
@@ -45,6 +47,7 @@
     <% time_left_in_day = minutes_per_day %>
 
     <% parts = task.parts %>
+
     <% same_task = false %>
 
     <% while parts.count > 0 %>
@@ -75,9 +78,10 @@
       <% end %>
     <% end %>
 
-    <% days_from_start = (date - task.start_date).to_i %>
+    <% days_from_start = (date - start).to_i %>
     <% days_arr[days_from_start] = days_arr[days_from_start] || [] %>
     <% days_arr[days_from_start].each do |p| %>
+      <% next if days_from_start < 0 %>
 
       <%= link_to "#{p.chapter}>#{p.module}>#{p.name}:#{p.hours*60 + p.minutes}#{p.completed ? ' | DONE' : ''}", task_part_path(task, p), class: "btn btn-default btn-xs cal-content" %>
     <% end %>
@@ -87,3 +91,7 @@
 <br>
 
 <%= link_to 'New Task', new_task_path, class: "btn btn-primary btn-xl page-scroll" %>
+
+<br><br>
+
+<%= link_to 'Refresh', refresh_path, :method => :post, class: "btn btn-primary btn-lg" %>

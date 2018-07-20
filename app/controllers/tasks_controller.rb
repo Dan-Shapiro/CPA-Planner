@@ -5,7 +5,7 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+    @tasks = current_user.tasks
   end
 
   # GET /tasks/1
@@ -60,6 +60,18 @@ class TasksController < ApplicationController
       format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def refresh
+    @tasks = current_user.tasks
+    @tasks.each do |task|
+      task.parts.each do |part|
+        if part.completed
+          part.destroy
+        end
+      end
+    end
+    redirect_to root_path, :notice => "Completed Tasks Removed!"
   end
 
   private
