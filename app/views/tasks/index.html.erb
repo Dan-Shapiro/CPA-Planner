@@ -41,28 +41,37 @@
     <% task.parts.each do |part| %>
       <% total_minutes += (part.hours * 60) + part.minutes %>
     <% end %>
-    <% minutes_per_day = (total_minutes.to_f / num_days.to_f).round %>
+    <% minutes_per_day = (total_minutes.to_f / num_days.to_f) %>
     <% time_left_in_day = minutes_per_day %>
 
     <% parts = task.parts %>
+    <% same_task = false %>
 
-    <% curr_minute_count = 0 %>
-    <% minutes_counted = minutes_per_day %>
     <% while parts.count > 0 %>
       <% part = parts.first %>
-      <% days_arr[first_available_day].push(part) if days_arr.count > first_available_day %>
-      <% if curr_minute_count < minutes_counted %>
-        <% curr_minute_count += part.hours * 60 + part.minutes %>
+
+      <% unless same_task %>
+        <% min_todo = part.hours * 60 + part.minutes %>
       <% end %>
-      <% if part.hours * 60 + part.minutes >= time_left_in_day %>
-        <% first_available_day += 1 %>
+
+      <% if days_arr.count > first_available_day %>
+        <% days_arr[first_available_day].push(part) %>
+        <% same_task = true %>
+      <% end %>
+
+      <% if min_todo > time_left_in_day %>
+        <% min_todo -= time_left_in_day %>
         <% time_left_in_day = minutes_per_day %>
-        <% minutes_counted += minutes_per_day %>
+        <% first_available_day += 1 %>
       <% else %>
-        <% time_left_in_day -= (part.hours * 60 + part.minutes) %>
-      <% end %>
-      <% if curr_minute_count < minutes_counted %>
         <% parts = parts.drop(1) %>
+        <% same_task = false %>
+        <% time_left_in_day -= min_todo %>
+
+        <% if time_left_in_day <= 0 %>
+          <% time_left_in_day = minutes_per_day %>
+          <% first_available_day += 1 %>
+        <% end %>
       <% end %>
     <% end %>
 
